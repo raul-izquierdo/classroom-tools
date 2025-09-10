@@ -82,21 +82,23 @@ For more information, see the [student file formats](https://github.com/raul-izq
 
 Once the student and lab-group data are available, use `roster.jar` to create the roster.
 
+> If the instructor does not teach all groups, it is useful to specify which groups he teaches to filter his students and ignore the rest. To indicate the instructor’s groups, create a `schedule.csv` file (if not already created in the installation process) and pass it using the `-g` option. The format of this file is explained in [Groups file format](https://github.com/raul-izquierdo/roster#groups-file-format).
+
 Usage examples:
 ```bash
 # Create a roster from SIES
-java -jar roster.jar create alumnosMatriculados.xls -f sies
+java -jar roster.jar create alumnosMatriculados.xls -f sies -g schedule.csv
 
 # Create a roster from a simple excel file with two columns
-java -jar roster.jar create myExcelFile.xls -f excel
+java -jar roster.jar create myExcelFile.xls -f excel -g schedule.csv
 
 # Create a roster from a simple txt file
-java -jar roster.jar create myTextFile.txt -f csv
+java -jar roster.jar create myTextFile.txt -f csv -g schedule.csv
 ```
 
 Example output:
 ```bash
-$ java -jar roster.jar create myTextFile -f csv
+$ java -jar roster.jar create myTextFile -f csv -g schedule.csv
 
 ## Students to add to the roster
 
@@ -106,26 +108,14 @@ Instructions:
 - Click the 'Update Students' button.
 - Select and copy all the lines below at once, then paste them into the 'Create your roster manually' text area.
 
-Izquierdo Castanedo, Raúl (grupo01)
-González Pérez, Juan (grupo_ingles_02)
-Alonso, Mariano (grupo01)
-Rodríguez, Javier (grupo02)
+Izquierdo Castanedo, Raúl (01)
+González Pérez, Juan (i02)
+Alonso, Mariano (01)
+Rodríguez, Javier (02)
 ```
 
 Each generated identifier includes the student’s lab group in parentheses, which facilitates filtering in the Classroom UI.
 
-##### Filtering by instructor's groups
-
-Usually, not all course groups are managed by a single instructor. To filter and generate only the relevant students, two options are available:
-- Manually remove from the input file all students in other instructors’ groups. This process must be repeated each time the file is updated and is therefore not recommended.
-- Leave the students file unchanged and, using the `-g` option, list the groups to be included. The format of this file is explained in [Groups file format](https://github.com/raul-izquierdo/roster#groups-file-format). If created during installation, `schedule.csv` can be used directly.
-
-    To use this option, execute:
-    ```bash
-    java -jar roster.jar create alumnosMatriculados.xls -f sies -g schedule.csv
-    ```
-
-    With this invocation, only students in groups listed in `schedule.csv` will appear in the output.
 
 ### Phase 2. After the first assignment
 
