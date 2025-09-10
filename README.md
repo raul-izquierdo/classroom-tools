@@ -87,18 +87,18 @@ Once the student and lab-group data are available, use `roster.jar` to create th
 Usage examples:
 ```bash
 # Create a roster from SIES
-java -jar roster.jar create alumnosMatriculados.xls -f sies -g schedule.csv
+java -jar roster.jar create -g schedule.csv -f sies alumnosMatriculados.xls
 
 # Create a roster from a simple excel file with two columns
-java -jar roster.jar create myExcelFile.xls -f excel -g schedule.csv
+java -jar roster.jar create -g schedule.csv -f excel myExcelFile.xls
 
 # Create a roster from a simple txt file
-java -jar roster.jar create myTextFile.txt -f csv -g schedule.csv
+java -jar roster.jar create -g schedule.csv -f csv myTextFile.txt
 ```
 
 Example output:
 ```bash
-$ java -jar roster.jar create myTextFile -f csv -g schedule.csv
+$ java -jar roster.jar create -g schedule.csv -f csv myTextFile
 
 ## Students to add to the roster
 
@@ -180,7 +180,7 @@ During the course—especially in the first weeks—enrollments may change and s
 
 For step 3, use `roster.jar` with the `update` command:
 ```bash
-java -jar roster.jar update alumnosMatriculados.xls -f sies -r classroom_roster.csv -g schedule.csv
+java -jar roster.jar update -g schedule.csv -r classroom_roster.csv -f sies alumnosMatriculados.xls
 ```
 
 The output, unlike `create`, includes up to three sections (only those with changes will appear):
@@ -190,7 +190,7 @@ The output, unlike `create`, includes up to three sections (only those with chan
 
 Example output:
 ```bash
-$ java -jar roster.jar update alumnosMatriculados.xls -f sies -r classroom_roster.csv -g schedule.csv
+$ java -jar roster.jar update -g schedule.csv -r classroom_roster.csv -f sies alumnosMatriculados.xls
 
 ## Students to add to the roster
 
