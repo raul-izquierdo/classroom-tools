@@ -167,7 +167,7 @@ This command may also be rerun with an updated roster to synchronize Teams: it a
 During the course—especially in the first weeks—enrollments may change and students may switch lab groups. To keep the roster up to date, the following steps are required:
 
 1. Obtain an updated list of students and their lab groups, using SIES or the institution’s information system.
-2. [Download the roster](#obtaining-the-roster-file).
+2. [Obtain the roster file](#obtaining-the-roster-file).
 3. **Determine the changes to make** in the roster by comparing the two files from steps 1 and 2 using `roster.jar`.
 
     For step 3, use `roster.jar` with the `update` command:
@@ -225,7 +225,7 @@ During the course—especially in the first weeks—enrollments may change and s
 
 4. **Manually** enter the changes obtained in step 3, following the instructions shown in the output of the `roster.jar` command.
 
-5. To update the Teams, [download the updated roster](#obtaining-the-roster-file) again. **Important**: the copy from step 2 is **no longer valid** because the roster has been manually edited in step 4—a fresh copy must be downloaded.
+5. To update the Teams, [obtain an updated roster](#obtaining-the-roster-file) again. **Important**: the copy from step 2 is **no longer valid** because the roster has been manually edited in step 4—a fresh copy must be downloaded.
 
 6. **Update the Teams** with the same command used for their creation. This command will automatically detect the changes and recognize that it is an update rather than a creation.
     ```bash
