@@ -2,6 +2,8 @@
 
 
 .env
+*.xls
+*.csv
 
 # Visual Studio Code
 
