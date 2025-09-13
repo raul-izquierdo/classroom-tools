@@ -28,12 +28,12 @@ To use these tools, download each tool’s JAR from its repository. Although man
    ./install.sh
    ```
 
-3. (Optional) Complete the `.env` file with the organization name and the GitHub Classroom API access token. A template for this file is included in the repository.
+3. (Optional) Create a `.env` file with the organization name and the GitHub Classroom API access token.
     ```env
     GITHUB_ORG=<organization>
     GITHUB_TOKEN=<token>
     ```
-    This step is optional; the `.env` file may be deleted. However, providing this file simplifies running the tools, as command-line flags will not be required. For information on obtaining the token, see [Obtaining the GitHub Token](#obtaining-the-github-token).
+    This step is optional. However, providing this file simplifies running the tools, as command-line flags will not be required. For information on obtaining the token, see [Obtaining the GitHub Token](#obtaining-the-github-token).
 
 4. (Optional) Create the `schedule.csv` file with the schedules for the teacher groups. A template is included in the repository and contains sample groups that should be replaced with actual group data.
     ```csv

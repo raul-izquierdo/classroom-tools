@@ -1,9 +1,7 @@
 # Project specific files
 
 
-# ALLOW .env to download the template file
-# .env
-# .env.*
+.env
 
 # Visual Studio Code
 
