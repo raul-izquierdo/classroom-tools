@@ -11,7 +11,7 @@ These tools are implemented in Java and require JDK 21 or later.
 
 ## Installation
 
-To use these tools, download each tool’s JAR from its repository. Although manual download is possible, this repository includes installation scripts (`install.sh` or `install.cmd`) that automate the process. The recommended installation steps are:
+To use these tools, download each tool’s JAR from its repository. Although manual download is possible, this repository includes download scripts (`get-jars.sh` or `get-jars.cmd`) that automate the process. Therefore, the recommended installation steps are:
 
 1. Clone this repository:
    ```bash
@@ -19,13 +19,13 @@ To use these tools, download each tool’s JAR from its repository. Although man
    cd classroom-tools
    ```
 
-2. Run the installation script for the appropriate operating system to download the tools' JARs.
+2. Run the script for the appropriate operating system to download the tools' JARs.
    ```bash
    # Windows
-   install.cmd
+   get-jars.cmd
 
    # Linux/Mac
-   ./install.sh
+   ./get-jars.sh
    ```
 
 3. (Optional) Create a `.env` file with the organization name and the GitHub Classroom API access token.
