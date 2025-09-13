@@ -4,7 +4,7 @@ This repository is an index of tools created to assist instructors in managing c
 
 The tools included in this project are:
 - [roster.jar](https://github.com/raul-izquierdo/roster): assists in maintaining the classroom roster as students join, leave, or change lab groups.
-- [teams.jar](https://github.com/raul-izquierdo/teams): generates and updates GitHub Teams for each lab group based on the roster, enabling group-based permissions.
+- [teams.jar](https://github.com/raul-izquierdo/teams): generates and updates GitHub Teams for each lab group based on the roster, enabling group-based permissions to repositories.
 - [solutions.jar](https://github.com/raul-izquierdo/solutions): used to show or hide an assignment's solution for a lab group.
 
 These tools are implemented in Java and require JDK 21 or later.
@@ -25,7 +25,7 @@ To use these tools, download each tool’s JAR from its repository. Although man
    get-jars.cmd
 
    # Linux/Mac
-   ./get-jars.sh
+   ./get-jars.shv
    ```
 
 3. (Optional) Create a `.env` file with the organization name and the GitHub Classroom API access token.
@@ -58,74 +58,74 @@ Although usage and options for each tool are explained in their respective repos
 
 ### Phase 1. At the beginning of the course
 
-The following steps are recommended in this phase:
+At the beginning of the course, the classroom roster must be created. This roster is the list of students who can receive assignments.
+
+The following steps are required in this phase:
+
 1. **Create a new classroom** (and optionally copy assignments from the previous one) using the GitHub Classroom web interface. No tool is required for this step.
-2. [Obtain the list of students](#11-get-the-list-of-students) enrolled in the course.
-3. [Generate the roster](#12-generate-the-roster) in GitHub Classroom from the student list.
+
+2. Obtain the **list of students** enrolled in the course.
+
+    The method for obtaining this list depends on the institution. At the University of Oviedo, this file is provided by the SIES academic management system. If that is not available, an Excel sheet or a simple TXT/CSV file such as the following may be used:
+
+    ```csv
+    "Izquierdo Castanedo, Raúl", grupo01
+    "González, Juan", grupo_ingles_02
+    "Alonso, Mariano", grupo01
+    "Rodríguez, Javier", grupo02
+    ```
+    For more information, see the [student file formats](https://github.com/raul-izquierdo/roster#student-file-formats).
+
+3. **Create the roster** from the student list using `roster.jar`.
+
+    Before creating the roster, if the instructor does not teach all groups, it is useful to specify which groups he teaches to filter his students and ignore the rest. To indicate the instructor’s groups, create a `schedule.csv` file (if not already created in the installation process) and pass it using the `-g` option. The format of this file is explained in [groups file format](https://github.com/raul-izquierdo/roster#groups-file-format). The following examples will use this file.
+
+    Examples of roster creation from different files formats:
+    ```bash
+    # Create a roster from SIES
+    java -jar roster.jar create -g schedule.csv -f sies alumnosMatriculados.xls
+
+    # Create a roster from a simple excel file with two columns
+    java -jar roster.jar create -g schedule.csv -f excel myExcelFile.xls
+
+    # Create a roster from a simple txt file.txt
+    java -jar roster.jar create -g schedule.csv -f csv myTextFile.txt
+    ```
+
+    Example output:
+    ```bash
+    $ java -jar roster.jar create -g schedule.csv -f csv myTextFile
+
+    ## Students to add to the roster
+
+    Instructions:
+    - Go to the Classroom page.
+    - Click the 'Students' tab.
+    - Click the 'Update Students' button.
+    - Select and copy all the lines below at once, then paste them into the 'Create your roster manually' text area.
+
+    Izquierdo Castanedo, Raúl (01)
+    González Pérez, Juan (i02)
+    Alonso, Mariano (01)
+    Rodríguez, Javier (02)
+    ```
+
+    Each generated identifier includes the student’s lab group in parentheses, which facilitates filtering in the Classroom UI.
+
 4. **Enter the roster manually**. GitHub Classroom does not offer an API to automate roster maintenance, so the result from the previous step must be copied and pasted into the web interface. `roster.jar` provides step-by-step instructions for this process.
 
 After completing these steps, when creating repositories with assignment solutions, it is **recommended** to use a naming convention so that the `solutions.jar` tool can automatically deduce the solution corresponding to each class. For more information, see [Repository names for solutions](https://github.com/raul-izquierdo/solutions#repository-names-for-solutions).
 
-#### 1.1 Get the list of students
-
-In this step, locate a list of the students enrolled in the course and their lab groups. The method for obtaining this list depends on the institution. At the University of Oviedo, this file is provided by the SIES academic management system. If that is not available, an Excel sheet or a simple TXT/CSV file such as the following may be used:
-
-```csv
-"Izquierdo Castanedo, Raúl", grupo01
-"González, Juan", grupo_ingles_02
-"Alonso, Mariano", grupo01
-"Rodríguez, Javier", grupo02
-```
-For more information, see the [student file formats](https://github.com/raul-izquierdo/roster#student-file-formats).
-
-#### 1.2 Generate the roster
-
-Once the student and lab-group data are available, use `roster.jar` to create the roster.
-
-> If the instructor does not teach all groups, it is useful to specify which groups he teaches to filter his students and ignore the rest. To indicate the instructor’s groups, create a `schedule.csv` file (if not already created in the installation process) and pass it using the `-g` option. The format of this file is explained in [Groups file format](https://github.com/raul-izquierdo/roster#groups-file-format).
-
-Usage examples:
-```bash
-# Create a roster from SIES
-java -jar roster.jar create -g schedule.csv -f sies alumnosMatriculados.xls
-
-# Create a roster from a simple excel file with two columns
-java -jar roster.jar create -g schedule.csv -f excel myExcelFile.xls
-
-# Create a roster from a simple txt file
-java -jar roster.jar create -g schedule.csv -f csv myTextFile.txt
-```
-
-Example output:
-```bash
-$ java -jar roster.jar create -g schedule.csv -f csv myTextFile
-
-## Students to add to the roster
-
-Instructions:
-- Go to the Classroom page.
-- Click the 'Students' tab.
-- Click the 'Update Students' button.
-- Select and copy all the lines below at once, then paste them into the 'Create your roster manually' text area.
-
-Izquierdo Castanedo, Raúl (01)
-González Pérez, Juan (i02)
-Alonso, Mariano (01)
-Rodríguez, Javier (02)
-```
-
-Each generated identifier includes the student’s lab group in parentheses, which facilitates filtering in the Classroom UI.
-
 
 ### Phase 2. After the first assignment
 
-To allow each group of students to view the solution to their assignment in phase 4, a separate GitHub Team must be created for each group. Unlike the roster, creation of these Teams is automated because GitHub provides an API for this task.
+To allow each group of students to view the solution to their assignment in phase 4, a separate GitHub Team must be created for each group. In this phase these teams will be created. But, unlike the roster, creation of these Teams is automated because GitHub provides an API for this task.
 
 The steps in this phase are as follows:
-1. Obtain the roster.
+1. Download an **updated** roster.
 2. Create the Teams from the roster.
 
-#### 2.1 Obtain the roster file
+#### 2.1 Download an Updated roster
 
 The roster was entered manually in phase 1; rather than regenerate it, download it from GitHub Classroom. To obtain this file, follow the instructions in [Obtaining the Roster File](#obtaining-the-roster-file).
 
@@ -164,71 +164,73 @@ This command may also be rerun with an updated roster to synchronize Teams: it a
 
 ### Phase 3. When a group changes
 
-During the course—especially in the first weeks—enrollments may change and students may switch lab groups. To keep the roster up to date, the following steps are recommended:
+During the course—especially in the first weeks—enrollments may change and students may switch lab groups. To keep the roster up to date, the following steps are required:
 
 1. Obtain an updated list of students and their lab groups, using SIES or the institution’s information system.
 2. [Download the roster](#obtaining-the-roster-file).
-3. [Determine the changes to make](#31-determine-the-changes-to-make) in the roster by comparing the two files from steps 1 and 2 using `roster.jar`.
-4. Manually enter the changes obtained in step 3, following the instructions shown in the output of the `roster.jar` command.
+3. **Determine the changes to make** in the roster by comparing the two files from steps 1 and 2 using `roster.jar`.
+
+    For step 3, use `roster.jar` with the `update` command:
+    ```bash
+    java -jar roster.jar update -g schedule.csv -r classroom_roster.csv -f sies alumnosMatriculados.xls
+    ```
+
+    The output, unlike `create`, includes up to three sections (only those with changes will appear):
+    - Students to add to the roster — newly enrolled students
+    - Students to remove from the roster — students who have dropped out
+    - Students who have changed groups — students who changed lab group
+
+    Example output:
+    ```bash
+    $ java -jar roster.jar update -g schedule.csv -r classroom_roster.csv -f sies alumnosMatriculados.xls
+
+    ## Students to add to the roster
+
+    Instructions:
+    - Go to the Classroom page.
+    - Click the 'Students' tab.
+    - Click the 'Update Students' button.
+    - Select and copy all the lines below at once, then paste them into the 'Create your roster manually' text area.
+
+    Izquierdo Castanedo, Raúl (01)
+    González Pérez, Juan (i02)
+
+    ## Students to remove from the roster
+
+    Instructions:
+    - Go to the Classroom page.
+    - Click the 'Students' tab.
+    - For each of the following lines:
+        - Find the student with that roster ID and click the "trash" icon.
+
+    Rodríguez Pérez, Mariano (01)
+    Gómez Alonso, Antonio (i01)
+
+    ## Students who have changed groups
+
+    Instructions:
+    - Go to the Classroom page.
+    - Click the 'Students' tab.
+    - For each of the following lines:
+        - Find the student using the old roster ID (shown on the left side of the arrow) and click the "pen" icon.
+        - Replace the old roster ID with the new one (shown on the right side of the arrow).
+
+    González Pérez, Juan (02) ---> González Pérez, Juan (03)
+    Valles Fuertes, Pedro (i01) ---> Valles Fuertes, Pedro (i02)
+    Ramírez Barragán, Lucía (01) ---> Ramírez Barragán, Lucía (02)
+    ```
+
+    The output includes step-by-step instructions for performing each change (additions, removals, and moves).
+
+
+4. **Manually** enter the changes obtained in step 3, following the instructions shown in the output of the `roster.jar` command.
+
 5. To update the Teams, [download the updated roster](#obtaining-the-roster-file) again. **Important**: the copy from step 2 is **no longer valid** because the roster has been manually edited in step 4—a fresh copy must be downloaded.
-6. Update the Teams with the same command used for their creation. This command will automatically detect the changes and recognize that it is an update rather than a creation.
+
+6. **Update the Teams** with the same command used for their creation. This command will automatically detect the changes and recognize that it is an update rather than a creation.
     ```bash
     java -jar teams.jar <classroom_roster.csv>
     ```
-
-#### 3.1 Determine the changes to make
-
-For step 3, use `roster.jar` with the `update` command:
-```bash
-java -jar roster.jar update -g schedule.csv -r classroom_roster.csv -f sies alumnosMatriculados.xls
-```
-
-The output, unlike `create`, includes up to three sections (only those with changes will appear):
-- Students to add to the roster — newly enrolled students
-- Students to remove from the roster — students who have dropped out
-- Students who have changed groups — students who changed lab group
-
-Example output:
-```bash
-$ java -jar roster.jar update -g schedule.csv -r classroom_roster.csv -f sies alumnosMatriculados.xls
-
-## Students to add to the roster
-
-Instructions:
-- Go to the Classroom page.
-- Click the 'Students' tab.
-- Click the 'Update Students' button.
-- Select and copy all the lines below at once, then paste them into the 'Create your roster manually' text area.
-
-Izquierdo Castanedo, Raúl (01)
-González Pérez, Juan (i02)
-
-## Students to remove from the roster
-
-Instructions:
-- Go to the Classroom page.
-- Click the 'Students' tab.
-- For each of the following lines:
-	- Find the student with that roster ID and click the "trash" icon.
-
-Rodríguez Pérez, Mariano (01)
-Gómez Alonso, Antonio (i01)
-
-## Students who have changed groups
-
-Instructions:
-- Go to the Classroom page.
-- Click the 'Students' tab.
-- For each of the following lines:
-	- Find the student using the old roster ID (shown on the left side of the arrow) and click the "pen" icon.
-	- Replace the old roster ID with the new one (shown on the right side of the arrow).
-
-González Pérez, Juan (02) ---> González Pérez, Juan (03)
-Valles Fuertes, Pedro (i01) ---> Valles Fuertes, Pedro (i02)
-Ramírez Barragán, Lucía (01) ---> Ramírez Barragán, Lucía (02)
-```
-
-The output includes step-by-step instructions for performing each change (additions, removals, and moves).
 
 ### Phase 4. At the end of each assignment
 
