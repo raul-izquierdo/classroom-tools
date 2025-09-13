@@ -44,7 +44,7 @@ To use these tools, download each tool’s JAR from its repository. Although man
     This file is only necessary if automatic selection of solutions is to be used (see [Phase 4](#phase-4-at-the-end-of-each-assignment)), which is highly recommended. For more information on creating this file, refer to [schedule file format](https://github.com/raul-izquierdo/solutions/#schedule-file-format).
 
 
-## Course workflow
+## Course Workflow
 
 Although usage and options for each tool are explained in their respective repositories, this index presents the **intended workflow** and **when** to use each tool.
 - [Phase 1. At the beginning of the course](#phase-1-at-the-beginning-of-the-course): Create the GitHub Classroom roster (the list of all students), which enables sending assignments.
@@ -140,7 +140,7 @@ If the roster is downloaded immediately after entry in phase 1, the GitHub usern
 "i02-cesar acebal (a02)","","",""
 "i02-yaagma (i02)","","",""
 ```
-If the roster is downloaded _after_ students accept the first assignment, each student’s GitHub username will be included, which `teams.jar` requires.
+If the roster is downloaded *after* students accept the first assignment, each student’s GitHub username will be included, which `teams.jar` requires.
 ```csv
 "identifier","github_username","github_id","name"
 "i01-yaagma (i01)","yaagma","40261856",""
@@ -234,10 +234,7 @@ The output includes step-by-step instructions for performing each change (additi
 
 After an assignment has been submitted and the solution has been explained, `solutions.jar` can be used to grant each group permission to access the repository containing the explained solution.
 
-<!-- TODO: 📅 /**/ Link to where the team and repository name formats are explained in solutions.jar -->
-
 There are two ways to perform this task: manual selection and automatic selection (recommended).
-
 
 #### Manual selection
 
@@ -252,7 +249,10 @@ This command presents a menu for selecting the group and the solution to show or
 
 This is the recommended option, as the tool deduces the group and the solution to show, and in most cases, confirmation will be sufficient.
 - The group is deduced from the current time, using the `schedule.csv` file created during installation.
-- The solution to show is the first one for which the group does not yet have access. For this, the [names of the solution repositories](https://github.com/raul-izquierdo/solutions#repository-names-for-solutions), when sorted alphabetically, must correspond to the order of the classes.
+- The solution to show is the first one for which the group does not yet have access.
+
+
+> **IMPORTANT**: For automatic selection to work, the tool must be able to distinguish which repositories contain assignment solutions and which are regular repositories. This is achieved by following a naming convention: solution repositories must end with `solution` and, when sorted alphabetically, should appear in the same order as the assignments are given. For more details, see [Repository names for solutions](https://github.com/raul-izquierdo/solutions#repository-names-for-solutions).
 
 
 Suppose the following `schedule.csv` file:
