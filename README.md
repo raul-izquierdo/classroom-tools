@@ -1,10 +1,25 @@
 # GitHub Classroom Tools
 
-This repository is an index of tools created to assist instructors in managing courses in GitHub Classroom.
+## Goals
+
+This repository is an index of tools created to assist instructors in managing courses with GitHub Classroom.
+
+Estas herramientas se crearon para dar soporte a la siguiente forma de trabajo:
+1. Durante las clases prácticas el profesor muestra en el proyector la solución a cada práctica antes de pasar a la siguiente. Al acabar la explicación sería muy útil que los alumnos tuvieran unos minutos para ver en su ordenador los ficheros de dicha solución a su ritmo y, así, poder asimilar lo explicado y preguntar dudas adicionales al profesor.
+    - Sin embargo esto no era práctico, ya que para ello los alumnos tenían que ir a la página web de la asignatura para bajar, descomprimir e importar un proyecto en su IDE, lo cual interrumpía el flujo de la clase práctica y, por tanto, se optó porque lo miraran posteriormente en casa.
+2. Una vez que los alumnos subían sus proyectos en formato ZIP, era realmente tedioso para el profesor el descargar, descomprimir e importar cada entrega para revisarla (con los habituales errores de importación).
+    - Además, posteriormente, habría que redactar y enviar un informe a cada alumno con las mejoras sugeridas con el suficiente detalle para que el alumno pudiera entenderlas y aplicarlas.
+
+Para evitar estos problemas, esta suite de herramientas permite:
+- Que los alumnos puedan ver las soluciones en su ordenador de manera inmediata después de la explicación del profesor, con un click y sin necesidad de instalar nada. Se usará para ello la versión web de VSCode (independientemente del IDE que use el alumno en su ordenador), lo cual permite la navegación propia de un IDE.
+- Que el profesor, sin tener que bajar ni instalar nada en su ordenador, pueda revisar las entregas de los alumnos de forma online cambiando de una a otra de forma inmediata.
+    - Esta rapidez permite al profesor revisar las entregas durante la misma clase mientras los alumnos trabajan en la siguiente práctica y, por tanto, en vez de tener que redactar un informe, puede pedir al alumno que se acerque y comentarle oralmente las mejoras a realizar, lo cual permite una interacción bidireccional mucho más efectiva.
+
+## Overview of Tools
 
 The tools included in this project are:
 - [roster.jar](https://github.com/raul-izquierdo/roster): assists in maintaining the classroom roster as students join, leave, or change lab groups.
-- [teams.jar](https://github.com/raul-izquierdo/teams): generates and updates GitHub Teams for each lab group based on the roster, enabling group-based permissions to repositories.
+- [teams.jar](https://github.com/raul-izquierdo/teams): generates and updates GitHub Teams for each lab group based on the roster, enabling group-based permissions.
 - [solutions.jar](https://github.com/raul-izquierdo/solutions): used to show or hide an assignment's solution for a lab group.
 
 These tools are implemented in Java and require JDK 21 or later.
@@ -19,7 +34,7 @@ To use these tools, download each tool’s JAR from its repository. Although man
    cd classroom-tools
    ```
 
-2. Run the script for the appropriate operating system to download the tools' JARs.
+2. Run the script for the appropriate operating system to download (or update) the tools' JARs.
    ```bash
    # Windows
    get-jars.cmd
@@ -30,30 +45,42 @@ To use these tools, download each tool’s JAR from its repository. Although man
 
 3. (Optional) Create a `.env` file with the organization name and the GitHub Classroom API access token.
     ```env
-    GITHUB_ORG=<organization>
-    GITHUB_TOKEN=<token>
+    GITHUB_ORG=<organization associated with the classroom>
+    GITHUB_TOKEN=<GitHub token>
+    STUDENTS_FILE=<name of the file with the list of students>
+    STUDENTS_FORMAT=<format of the previous file>
     ```
-    This step is optional. However, providing this file simplifies running the tools, as command-line flags will not be required. For information on obtaining the token, see [Obtaining the GitHub Token](#obtaining-the-github-token).
 
-4. (Optional) Create the `schedule.csv` file with the schedules for the teacher groups. A template is included in the repository and contains sample groups that should be replaced with actual group data.
+    This step is optional. However, providing this file simplifies running the tools, as command-line flags will not be required. This repository includes a `.env.example` file to be copied and edited.
+
+    For information on obtaining the _token_, see [Obtaining the GitHub Token](#obtaining-the-github-token).
+
+    The _STUDENTS_FILE_ should contain a list of students enrolled in your course and their lab groups. How you obtain this list depends on your institution. For example, at the University of Oviedo, this file is provided by the SIES academic management system and the values of those two variables should be:
+
+    ```csv
+    STUDENTS_FILE="alumnosMatriculados.xls"
+    STUDENTS_FORMAT="sies"
+    ```
+
+    See [Student file formats](https://github.com/raul-izquierdo/roster?tab=readme-ov-file#student-file-formats) for more information about other options.
+
+4. Edit the `schedule.csv`, which initially contains just sample data, with the schedules for the teacher groups.
     ```csv
     01, monday, 21:00
     02, tuesday, 14:00, 3h
     i01, wednesday, 16:00, 45m
     ```
-    This file is only necessary if automatic selection of solutions is to be used (see [Phase 4](#phase-4-at-the-end-of-each-assignment)), which is highly recommended. For more information on creating this file, refer to [schedule file format](https://github.com/raul-izquierdo/solutions/#schedule-file-format).
-
 
 ## Course Workflow
 
 Although usage and options for each tool are explained in their respective repositories, this index presents the **intended workflow** and **when** to use each tool.
 - [Phase 1. At the beginning of the course](#phase-1-at-the-beginning-of-the-course): Create the GitHub Classroom roster (the list of all students), which enables sending assignments.
 - [Phase 2. After the first assignment](#phase-2-after-the-first-assignment): Generate GitHub Teams from the roster to grant repository access by group.
-- [Phase 3. When a group changes](#phase-3-when-a-group-changes): Update the roster and Teams when enrollment or lab-group assignments change.
+- [Phase 3. Managing Changes](#phase-3-managing-changes): Update the roster and Teams when enrollment or lab-group assignments change.
 - [Phase 4. At the end of each assignment](#phase-4-at-the-end-of-each-assignment): Grant each group permission to view the assignment solution.
 - [Phase 5. At the end of the course](#phase-5-at-the-end-of-the-course): Delete the roster and GitHub Classroom teams, leaving a clean organization for the next course (while keeping starter code and solutions).
 
-> NOTE: In the examples below, it is assumed that the organization and GitHub token are defined in the `.env` file. If not, these must be provided on the command line to tools that require them using the `-o` and `-t` flags, respectively.
+> NOTE: In the examples below, it is assumed that the file `.env` has been created with the required variables. If not, these values must be provided on the command line to tools using their respective flags.
 
 
 ### Phase 1. At the beginning of the course
@@ -64,32 +91,15 @@ The following steps are required in this phase:
 
 1. **Create a new classroom** (and optionally copy assignments from the previous one) using the GitHub Classroom web interface. No tool is required for this step.
 
-2. Obtain the **list of students** enrolled in the course.
-
-    The method for obtaining this list depends on the institution. At the University of Oviedo, this file is provided by the SIES academic management system. If that is not available, an Excel sheet or a simple TXT/CSV file such as the following may be used:
-
-    ```csv
-    "Izquierdo Castanedo, Raúl", grupo01
-    "González, Juan", grupo_ingles_02
-    "Alonso, Mariano", grupo01
-    "Rodríguez, Javier", grupo02
-    ```
-    For more information, see the [student file formats](https://github.com/raul-izquierdo/roster#student-file-formats).
+2. Obtain the file with the **list of students** enrolled in the course. That is the file whose name was assigned to the _STUDENTS_FILE_ variable (`alumnosMatriculados.xls` in the example below).
 
 3. **Create the roster** from the student list using `roster.jar`.
 
     Before creating the roster, if the instructor does not teach all groups, it is useful to specify which groups he teaches to filter his students and ignore the rest. To indicate the instructor’s groups, create a `schedule.csv` file (if not already created in the installation process) and pass it using the `-g` option. The format of this file is explained in [groups file format](https://github.com/raul-izquierdo/roster#groups-file-format). The following examples will use this file.
 
-    Examples of roster creation from different files formats:
+    Assuming the previous `.env` file, the command to create the roster is:
     ```bash
-    # Create a roster from SIES
-    java -jar roster.jar create -g schedule.csv -f sies alumnosMatriculados.xls
-
-    # Create a roster from a simple excel file with two columns
-    java -jar roster.jar create -g schedule.csv -f excel myExcelFile.xls
-
-    # Create a roster from a simple txt file.txt
-    java -jar roster.jar create -g schedule.csv -f csv myTextFile.txt
+    java -jar roster.jar create
     ```
 
     Example output:
@@ -114,7 +124,7 @@ The following steps are required in this phase:
 
 4. **Enter the roster manually**. GitHub Classroom does not offer an API to automate roster maintenance, so the result from the previous step must be copied and pasted into the web interface. `roster.jar` provides step-by-step instructions for this process.
 
-After completing these steps, when creating repositories with assignment solutions, it is **recommended** to use a naming convention so that the `solutions.jar` tool can automatically deduce the solution corresponding to each class. For more information, see [Repository names for solutions](https://github.com/raul-izquierdo/solutions#repository-names-for-solutions).
+After completing these steps, when creating repositories for assignment solutions, it is **recommended** to use a naming convention so that the `solutions.jar` tool can automatically deduce the solution corresponding to each class. For more information, see [Repository names for solutions](https://github.com/raul-izquierdo/solutions#repository-names-for-solutions).
 
 
 ### Phase 2. After the first assignment
@@ -129,7 +139,7 @@ The steps in this phase are as follows:
 
 The roster was entered manually in phase 1; rather than regenerate it, download it from GitHub Classroom. To obtain this file, follow the instructions in [Obtaining the Roster File](#obtaining-the-roster-file).
 
-**Important:** This step should be performed *after* students have accepted the first assignment; only then are their roster IDs associated with their GitHub accounts. Note the distinction between:
+**Important:** This step should be performed _after_ students have accepted the first assignment; only then are their roster IDs associated with their GitHub accounts. Note the distinction between:
 - The student’s **personal GitHub account/username**: This is the username the student uses to log in to GitHub. The tool `teams.jar` requires it to create the Teams, and it is not included in the roster until the first assignment is accepted.
 - The student’s **roster identifier**: This is the identifier generated by `roster.jar` so the instructor can identify students in assignments without knowing their personal GitHub account.
 
@@ -140,7 +150,7 @@ If the roster is downloaded immediately after entry in phase 1, the GitHub usern
 "i02-cesar acebal (a02)","","",""
 "i02-yaagma (i02)","","",""
 ```
-If the roster is downloaded *after* students accept the first assignment, each student’s GitHub username will be included, which `teams.jar` requires.
+If the roster is downloaded _after_ students accept the first assignment, each student’s GitHub username will be included, which `teams.jar` requires.
 ```csv
 "identifier","github_username","github_id","name"
 "i01-yaagma (i01)","yaagma","40261856",""
@@ -162,75 +172,17 @@ The parameter is the roster CSV file. If omitted, the tool defaults to `classroo
 
 This command may also be rerun with an updated roster to synchronize Teams: it adds new students, removes withdrawn ones, and moves students who have changed lab groups.
 
-### Phase 3. When a group changes
+### Phase 3. Managing Changes
 
-During the course—especially in the first weeks—enrollments may change and students may switch lab groups. To keep the roster up to date, the following steps are required:
+During the course—especially in the first weeks—enrollments may change and students may switch lab groups. To keep the roster up to date, just run:
+```cmd
+update.cmd   # Windows
+```
+```bash
+./update.sh  # Linux/Mac
+```
 
-1. Obtain an updated list of students and their lab groups, using SIES or the institution’s information system.
-2. [Obtain the roster file](#obtaining-the-roster-file).
-3. **Determine the changes to make** in the roster by comparing the two files from steps 1 and 2 using `roster.jar`.
-
-    For step 3, use `roster.jar` with the `update` command:
-    ```bash
-    java -jar roster.jar update -g schedule.csv -r classroom_roster.csv -f sies alumnosMatriculados.xls
-    ```
-
-    The output, unlike `create`, includes up to three sections (only those with changes will appear):
-    - Students to add to the roster — newly enrolled students
-    - Students to remove from the roster — students who have dropped out
-    - Students who have changed groups — students who changed lab group
-
-    Example output:
-    ```bash
-    $ java -jar roster.jar update -g schedule.csv -r classroom_roster.csv -f sies alumnosMatriculados.xls
-
-    ## Students to add to the roster
-
-    Instructions:
-    - Go to the Classroom page.
-    - Click the 'Students' tab.
-    - Click the 'Update Students' button.
-    - Select and copy all the lines below at once, then paste them into the 'Create your roster manually' text area.
-
-    Izquierdo Castanedo, Raúl (01)
-    González Pérez, Juan (i02)
-
-    ## Students to remove from the roster
-
-    Instructions:
-    - Go to the Classroom page.
-    - Click the 'Students' tab.
-    - For each of the following lines:
-        - Find the student with that roster ID and click the "trash" icon.
-
-    Rodríguez Pérez, Mariano (01)
-    Gómez Alonso, Antonio (i01)
-
-    ## Students who have changed groups
-
-    Instructions:
-    - Go to the Classroom page.
-    - Click the 'Students' tab.
-    - For each of the following lines:
-        - Find the student using the old roster ID (shown on the left side of the arrow) and click the "pen" icon.
-        - Replace the old roster ID with the new one (shown on the right side of the arrow).
-
-    González Pérez, Juan (02) ---> González Pérez, Juan (03)
-    Valles Fuertes, Pedro (i01) ---> Valles Fuertes, Pedro (i02)
-    Ramírez Barragán, Lucía (01) ---> Ramírez Barragán, Lucía (02)
-    ```
-
-    The output includes step-by-step instructions for performing each change (additions, removals, and moves).
-
-
-4. **Manually** enter the changes obtained in step 3, following the instructions shown in the output of the `roster.jar` command.
-
-5. To update the Teams, [obtain an updated roster](#obtaining-the-roster-file) again. **Important**: the copy from step 2 is **no longer valid** because the roster has been manually edited in step 4—a fresh copy must be downloaded.
-
-6. **Update the Teams** with the same command used for their creation. This command will automatically detect the changes and recognize that it is an update rather than a creation.
-    ```bash
-    java -jar teams.jar <classroom_roster.csv>
-    ```
+The output will indicate if any changes are needed. If so, follow the instructions to update the roster in GitHub Classroom and the Teams.
 
 ### Phase 4. At the end of each assignment
 
@@ -264,13 +216,9 @@ G2,tuesday 09:00
 G-english-1,friday 10:00
 ```
 
-In this case, the tool would be invoked as follows:
-```bash
-java -jar solutions.jar -s schedule.csv
-```
 The output would be:
 ```bash
-$ java -jar solutions.jar -s schedule.csv
+$ java -jar solutions.jar
 Connecting with Github... done.
 
 (now: 'wednesday' 08:15) Proceed to show 'factorial-solution' to group 'G1'? (y/N): y
@@ -301,15 +249,18 @@ Once the token is available, it can be provided in three ways (in order of prece
 
 ### Obtaining the Roster File
 
-The roster is the list of students that can receive assignments. Some of the tools described in this repository require this file to operate. The roster can be downloaded from the organization page.
+Each classroom in GitHub Classroom has a roster associated with it. A classroom roster is the list of students that can receive its assignments.
 
-The steps to obtain this file are:
+Some of the tools described in this repository require the roster to operate. The steps to obtain this file are:
 1. Go to the GitHub Classroom page.
 2. Click on the "Students" tab.
 3. Click the "Download" button to obtain the CSV file `classroom_roster.csv`.
-
 
 ## License
 
 See `LICENSE`.
 Copyright (c) 2025 Raul Izquierdo Castanedo
+
+
+---
+<style>p:has(+ :is(ul,ol)) { margin-bottom: 0; }</style>
