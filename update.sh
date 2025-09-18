@@ -23,7 +23,7 @@ case "$rc" in
     echo The roster requires changes. Please follow these steps:
     echo 1. Apply the suggested changes to the roster using the web interface.
     echo 2. Download an updated "classroom_roster.csv".
-    echo 3. Run this script "./update.sh" again to continue once you've made the changes.
+    echo "3. Run this script \"./update.sh\" again to continue once you've made the changes."
     exit 1
     ;;
   2)
@@ -44,4 +44,4 @@ case "$rc" in
     echo "Unexpected exit code $rc from 'java -jar roster.jar update'. Stopping."
     exit "$rc"
     ;;
-fi
+esac
