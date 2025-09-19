@@ -88,11 +88,9 @@ At the beginning of the course, the classroom roster must be created. This roste
 
 The following steps are required in this phase:
 
-1. **Create a new classroom** (and optionally copy assignments from the previous one) using the GitHub Classroom web interface. No tool is required for this step.
+1. Obtain the file with the **list of students** enrolled in the course. That is the file whose name was assigned to the _STUDENTS_FILE_ variable (`alumnosMatriculados.xls` in the example below).
 
-2. Obtain the file with the **list of students** enrolled in the course. That is the file whose name was assigned to the _STUDENTS_FILE_ variable (`alumnosMatriculados.xls` in the example below).
-
-3. **Create the roster** from the student list using `roster.jar`.
+2. **Create the roster** from the student list using `roster.jar`.
 
     Before creating the roster, if the instructor does not teach all groups, it is useful to specify which groups he teaches to filter his students and ignore the rest. To indicate the instructor’s groups, create a `schedule.csv` file (if not already created in the installation process) and pass it using the `-s` option. The format of this file is explained in [groups file format](https://github.com/raul-izquierdo/roster#groups-file-format). The following examples will use this file.
 
@@ -121,7 +119,7 @@ The following steps are required in this phase:
 
     Each generated identifier includes the student’s lab group in parentheses, which will make it easier to filter in the Classroom web interface.
 
-4. **Enter the roster manually**. GitHub Classroom does not offer an API to automate roster maintenance, so the result from the previous step must be copied and pasted into the web interface. `roster.jar` provides step-by-step instructions for this process.
+3. **Enter the roster manually**. GitHub Classroom does not offer an API to automate roster maintenance, so the result from the previous step must be copied and pasted into the web interface. `roster.jar` provides step-by-step instructions for this process.
 
 
 After completing these steps, when creating repositories for assignment **solutions**, it is **recommended** to use a naming convention so that the `solutions.jar` tool can automatically determine the solution corresponding to each class. For more information, see [Repository names for solutions](https://github.com/raul-izquierdo/solutions#repository-names-for-solutions).
