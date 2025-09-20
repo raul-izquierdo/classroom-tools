@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 curl -fSL -o roster.jar https://github.com/raul-izquierdo/roster/releases/latest/download/roster.jar || { echo "ERROR: Failed to download roster.jar" >&2; rm -f roster.jar; exit 1; }
 curl -fSL -o teams.jar https://github.com/raul-izquierdo/teams/releases/latest/download/teams.jar   || { echo "ERROR: Failed to download teams.jar" >&2; rm -f teams.jar; exit 1; }
