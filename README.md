@@ -35,6 +35,7 @@ You **have already read all the documentation** and installed the tools, and jus
 - The students have already accepted the **first assignment**? Now you can **create the teams**:
     ```bash
     update.cmd   # Windows
+
     ./update.sh  # Linux/Mac
     ```
 - You have just finished explaining the solution to an assignment and want to allow the students in the current class to be able to study that code **on their own computers right now**? Grant them access to the solution:
