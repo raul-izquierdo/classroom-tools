@@ -28,11 +28,11 @@ Table of Contents
 
 You **have already read all the documentation** and installed the tools, and just want to quickly remember when to use them? Here is a quick **summary**:
 
-- At the beginning of the course? Create the roster:
+- At the **beginning** of the course? Create the roster:
     ```bash
     java -jar roster.jar create
     ```
-- The students have already accepted the first assignment? Now you can **create the teams**:
+- The students have already accepted the **first assignment**? Now you can **create the teams**:
     ```bash
     update.cmd   # Windows
     ./update.sh  # Linux/Mac
@@ -41,8 +41,8 @@ You **have already read all the documentation** and installed the tools, and jus
     ```bash
     java -jar solutions.jar
     ```
-- There are changes in enrollment or lab-group assignments? Run `update.cmd`/`update.sh` again.
-- The course has ended? Delete the teams and their students to prepare the organization for the next intake:
+- There are **changes in enrollment** or lab-group assignments? Run `update.cmd`/`update.sh` again.
+- The **course has ended**? Delete the teams and their students to prepare the organization for the next intake:
     ```bash
     java -jar teams.jar --clean
     ```
