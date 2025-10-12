@@ -227,7 +227,11 @@ This is the recommended option, as the tool deduces the group and the solution t
 - The group is deduced from the current time, using the `schedule.csv` file created during installation.
 - The solution to show is the first one for which the group does not yet have access.
 
-> **IMPORTANT**: For automatic selection to work, the tool must be able to distinguish which repositories contain assignment solutions and which are regular repositories. This is achieved by following a naming convention: solution repositories must end with `solution` and, when sorted alphabetically, should appear in the same order as the assignments are given. For more details, see [Repository names for solutions](https://github.com/raul-izquierdo/solutions#repository-names-for-solutions).
+> **IMPORTANT**: For automatic selection to work, the tool must be able to distinguish which repositories contain assignment solutions and which are regular repositories. This is achieved by following a naming convention:
+> - Solution repositories must end with `solution` (although this can be changed).
+> - In addition, when sorted alphabetically, should appear in the same order as the assignments are given.
+>
+> For more details, see [Repository names for solutions](https://github.com/raul-izquierdo/solutions#repository-names-for-solutions).
 
 
 Suppose the following `schedule.csv` file:
