@@ -68,6 +68,7 @@ Depending on the instructor's needs, they may choose to add only the first featu
 
 If you are only interested in the first feature, you only need to read the documentation of [roster.jar](https://github.com/raul-izquierdo/roster) and can ignore this repository, which is dedicated to the usage of **both features** together.
 
+As an additional tool, [merge-gits.jar](https://github.com/raul-izquierdo/merge-gits) is useful for merging the initial code of an assignment and its solution, but its usage is independent of the other tools and is not detailed in this index. It is recommended to consult its [usage scenario](https://github.com/raul-izquierdo/merge-gits) on Github.
 
 ### Feature 1: Fast Review of Student Submissions
 
