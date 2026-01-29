@@ -6,8 +6,9 @@ These tools are implemented in Java and require JDK 21 or later.
 
 Table of Contents
 
+- [Tools Included in This Suite](#tools-included-in-this-suite)
 - [TL;DR. Cheat Sheet](#tldr-cheat-sheet)
-- [Motivation for these tools](#motivation-for-these-tools)
+- [Motivation for these Tools](#motivation-for-these-tools)
     - [Feature 1: Fast Review of Student Submissions](#feature-1-fast-review-of-student-submissions)
     - [Feature 2: Fast Delivery of Solutions to Students](#feature-2-fast-delivery-of-solutions-to-students)
 - [Installation](#installation)
@@ -23,6 +24,19 @@ Table of Contents
     - [Obtaining the Roster File](#obtaining-the-roster-file)
 - [License](#license)
 
+
+## Tools Included in This Suite
+
+The [GitHub Classroom Tools](https://github.com/stars/raul-izquierdo/lists/github-classroom-tools) suite includes the following tools:
+- [roster.jar](https://github.com/raul-izquierdo/roster). A tool for creating and maintaining the GitHub Classroom roster.
+- [teams.jar](https://github.com/raul-izquierdo/teams). A tool for creating and maintaining GitHub teams for each lab group.
+- [solutions.jar](https://github.com/raul-izquierdo/solutions). A tool for showing or hiding an assignment solution to a lab group.
+- [merge-gits.jar](https://github.com/raul-izquierdo/merge-gits). A tool for merging the starter code of an assignment with its solution.
+- [grant](https://github.com/raul-izquierdo/grant). A tool for granting repository permissions to GitHub users or teams.
+
+The first three tools are designed to work together and are described in this index. The last two tools are independent and their usage is not detailed here. It is recommended to consult their respective repositories on GitHub for more information on their usage.
+
+Therefore, the rest of this document focuses on the combined usage of the first three tools: `roster.jar`, `teams.jar`, and `solutions.jar`. Detailed documentation for each tool separately can be found in their respective repositories, but it is recommended to read this index first to understand the complete workflow and when to use each tool.
 
 ## TL;DR. Cheat Sheet
 
@@ -50,11 +64,11 @@ You **have already read all the documentation** and installed the tools, and jus
 
 The later section [Course Workflow](#course-workflow) explains this in more detail.
 
-## Motivation for these tools
+## Motivation for these Tools
 
 These tools were developed to support a workflow for lab sessions consisting of:
-- In each session, students are given an exercise that they must submit before the next session.
-- At the beginning of the following session, the solution is explained and students can ask questions.
+- In each session, students are given an exercise (Github repository) that they must complete and submit before the next session.
+- At the beginning of the following session, the solution is explained (another Github repository) and students can ask questions.
 - Immediately after the solution is explained, the next exercise is assigned and students work on it during the remainder of the class.
 
 These tools were created with two main objectives in mind:
@@ -64,11 +78,10 @@ These tools were created with two main objectives in mind:
     - [teams.jar](https://github.com/raul-izquierdo/teams).
     - [solutions.jar](https://github.com/raul-izquierdo/solutions).
 
-Depending on the instructor's needs, they may choose to add only the first feature to their workflow (and therefore only need to use `roster.jar`), or incorporate both features (and use all three programs). In other words, the first feature is **independent** of the second (but the second depends on the first).
+Depending on the instructor's needs, he may choose to add only the first feature to his workflow (and therefore only need to use `roster.jar`), or incorporate both features (and use all three programs). In other words, the first feature is **independent** of the second (but the second depends on the first).
 
 If you are only interested in the first feature, you only need to read the documentation of [roster.jar](https://github.com/raul-izquierdo/roster) and can ignore this repository, which is dedicated to the usage of **both features** together.
 
-As an additional tool, [merge-gits.jar](https://github.com/raul-izquierdo/merge-gits) is useful for merging the initial code of an assignment and its solution, but its usage is independent of the other tools and is not detailed in this index. It is recommended to consult its [usage scenario](https://github.com/raul-izquierdo/merge-gits) on Github.
 
 ### Feature 1: Fast Review of Student Submissions
 
@@ -158,7 +171,7 @@ The following steps are required in this phase:
 
 2. **Create the roster** from the student list using `roster.jar`.
 
-    Before creating the roster, if the instructor does not teach all groups, it is useful to specify which groups he teaches to filter his students and ignore the rest. To indicate the instructor’s groups, create a `schedule.csv` file (if not already created in the installation process) and pass it using the `-s` option. The format of this file is explained in [groups file format](https://github.com/raul-izquierdo/roster#groups-file-format). The following examples will use this file.
+    Before creating the roster, if the instructor does not teach all groups, it is useful to specify which groups he teaches to filter his students and ignore the rest. To indicate the instructor's groups, create a `schedule.csv` file (if not already created in the installation process) and pass it using the `-s` option. The format of this file is explained in [groups file format](https://github.com/raul-izquierdo/roster#groups-file-format). The following examples will use this file.
 
     Assuming the previous `.env` file, the command to create the roster is:
     ```bash
