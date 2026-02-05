@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-java -jar solutions.jar
+java -jar solutions.jar "$@"
