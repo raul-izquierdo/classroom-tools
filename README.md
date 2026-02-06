@@ -33,8 +33,9 @@ The [GitHub Classroom Tools](https://github.com/stars/raul-izquierdo/lists/githu
 - [solutions.jar](https://github.com/raul-izquierdo/solutions). A tool for showing or hiding an assignment solution to a lab group.
 - [merge-gits.jar](https://github.com/raul-izquierdo/merge-gits). A tool for merging the starter code of an assignment with its solution.
 - [grant](https://github.com/raul-izquierdo/grant). A tool for granting repository permissions to GitHub users or teams.
+- [repos-status](https://github.com/raul-izquierdo/repos-status). A script that recursively scans all Git repositories in a directory tree and reports their synchronization status.
 
-The first three tools are designed to work together and are described in this index. The last two tools are independent and their usage is not detailed here. It is recommended to consult their respective repositories on GitHub for more information on their usage.
+The first three tools are designed to work together and are described in this index. The last three tools are independent and their usage is not detailed here. It is recommended to consult their respective repositories on GitHub for more information on their usage.
 
 Therefore, the rest of this document focuses on the combined usage of the first three tools: `roster.jar`, `teams.jar`, and `solutions.jar`. Detailed documentation for each tool separately can be found in their respective repositories, but it is recommended to read this index first to understand the complete workflow and when to use each tool.
 
