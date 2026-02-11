@@ -300,7 +300,3 @@ Some of the tools described in this repository require the roster file to operat
 
 See `LICENSE`.
 Copyright (c) 2025 Raul Izquierdo Castanedo
-
-
----
-<style>p:has(+ :is(ul,ol)) { margin-bottom: 0; }</style>
