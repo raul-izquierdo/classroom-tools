@@ -91,7 +91,7 @@ If you are only interested in the first feature, you only need to read the docum
 ### Feature 1: Fast Review of Student Submissions
 
 Before these tools were implemented, reviewing student submissions was a slow and cumbersome process:
-- Students submitted their projects as ZIP files. It was extremely time-consuming for the instructor to **download, extract, and import** each submission for review (often encountering import errors).
+- Students submitted their projects as ZIP files. It was extremely time-consuming for the instructor to **download, extract, and import** each submission for review (often encountering import errors because students could choose their own development environment).
 - Additionally, the instructor then had to write and send a **detailed report** to each student outlining the errors found, with enough detail for the student to understand and avoid repeating them.
 
 GitHub Classroom allows you to review student submissions online, switching between them **instantly** without downloading or installing anything locally.
